@@ -166,28 +166,37 @@ export const RESUME_DATA = {
 
   // 3. Cross-Functional Projects (Tagged by Persona so the Bento Grid filters smoothly)
   projects: [
+    
     {
-      id: "sports-community-platform",
-      title: "Sports Community & Session Booking Platform",
-      tagline: "Full-Stack Product + Local Community Growth Engine",
-      personas: ["all", "growth", "engineering", "cloud-pm"],
+      id: "sports-community-management",
+      title: "Sports Community Management & Growth",
+      tagline: "Community Building + Grassroots Sports Engagement",
+      personas: ["all", "growth"],
       category: "Social & Growth",
-      metrics: "End-to-end session bookings, revenue-sharing & grassroots social funnel",
-      techStack: ["Next.js", "FastAPI", "Instagram Growth", "Community Management", "SEO"],
+      metrics: "Community engagement, player acquisition & local sports growth",
+      techStack: [
+        "Community Management",
+        "Instagram Growth",
+        "Social Media Strategy",
+        "Content Creation",
+        "Local Community Building",
+        "SEO"
+      ],
       summary:
-        "Built both the booking/revenue-share platform for football and basketball sessions and the grassroots social media engine driving local player acquisition.",
+        "Built and managed a Shadow strikers football community by driving player engagement, growing local participation, managing social media presence, and creating community-led opportunities for sports sessions and events.",
       links: {},
     },
+
     {
       id: "ai-content-seo-engine",
-      title: "Autonomous AI Content & SEO Automation Pipeline",
-      tagline: "Multi-Agent Marketing Workflows with n8n & LLMs",
+      title: "AI-Powered Content & SEO Automation",
+      tagline: "Intelligent Content Workflows",
       personas: ["all", "growth", "engineering"],
       category: "Social & Growth",
       metrics: "Automated keyword research, social repurposing & omni-channel scheduling",
-      techStack: ["n8n", "LangGraph", "CrewAI", "Technical SEO", "Google AI Studio"],
+      techStack: ["n8n", "CrewAI", "Technical SEO", "Google AI Studio"],
       summary:
-        "Engineered automated marketing agents that scrape trending niche topics, generate SEO-optimized copy, and schedule multi-platform social assets.",
+        "Developed AI-powered marketing workflows to automate trend and keyword research, generate SEO-optimized content, repurpose content for social media, and streamline multi-platform publishing and scheduling.",
       links: {},
     },
     {
@@ -205,7 +214,7 @@ export const RESUME_DATA = {
     {
       id: "musashi-dispatch",
       title: "Enterprise Dispatch & GRN Digitization System",
-      tagline: "Technical PM & Full-Stack PoC for Musashi Auto Parts India",
+      tagline: "Technical PM & Full-Stack for Musashi Auto Parts India",
       personas: ["all", "engineering", "cloud-pm"],
       category: "Cloud & PM",
       metrics: "Digitized vehicle gate verification, GRN & transporter billing",
@@ -215,8 +224,8 @@ export const RESUME_DATA = {
       links: {},
     },
     {
-      id: "bookleaf-portal",
-      title: "BookLeaf Publishing Full-Stack Portal",
+      id: "root-portal",
+      title: "RootLeaf Publishing Full-Stack Portal",
       tagline: "Production Web Portal & Cloud Deployment on AWS",
       personas: ["all", "engineering", "cloud-pm"],
       category: "Full-Stack",
