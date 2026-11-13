@@ -1,26 +1,365 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --paper: #f4f1ea;
+  --ink: #191712;
+  --muted: #6f685c;
+  --line: rgba(25, 23, 18, 0.1);
+  --line-strong: rgba(25, 23, 18, 0.2);
+  --glass: rgba(255, 255, 255, 0.55);
+  --glass-strong: rgba(255, 255, 255, 0.74);
+  --glass-edge: rgba(255, 255, 255, 0.55);
+  --accent: #3d45d6;
+  --accent-soft: rgba(61, 69, 214, 0.1);
+  --warm: #d96a32;
+  --shadow: 0 30px 80px -48px rgba(25, 23, 18, 0.55);
+  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --paper: #0e0d0b;
+    --ink: #f4f1e9;
+    --muted: #a8a296;
+    --line: rgba(244, 241, 233, 0.12);
+    --line-strong: rgba(244, 241, 233, 0.26);
+    --glass: rgba(28, 27, 24, 0.55);
+    --glass-strong: rgba(30, 29, 26, 0.76);
+    --glass-edge: rgba(255, 255, 255, 0.07);
+    --accent: #9aa0ff;
+    --accent-soft: rgba(154, 160, 255, 0.12);
+    --warm: #f0a06a;
+    --shadow: 0 32px 90px -48px rgba(0, 0, 0, 0.95);
+    color-scheme: dark;
   }
 }
 
+@theme inline {
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-warm: var(--warm);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 0.35rem;
+}
+
+/* Dialogs receive focus programmatically as a landmark, not as a control. */
+[role="dialog"]:focus,
+[role="dialog"]:focus-visible {
+  outline: none;
+}
+
+.spotlight-input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 0;
+  border-radius: 0.5rem;
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.page-aura {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      52rem 34rem at 8% -8%,
+      color-mix(in srgb, var(--accent) 20%, transparent),
+      transparent 65%
+    ),
+    radial-gradient(
+      40rem 30rem at 98% 4%,
+      color-mix(in srgb, var(--warm) 16%, transparent),
+      transparent 68%
+    ),
+    radial-gradient(
+      48rem 38rem at 55% 112%,
+      color-mix(in srgb, var(--accent) 9%, transparent),
+      transparent 70%
+    );
+}
+
+@layer components {
+  /* One translucent material per surface — never nest a glass card in a glass card. */
+  .glass-panel {
+    border: 1px solid var(--line);
+    border-radius: 1.75rem;
+    background: var(--glass);
+    box-shadow:
+      inset 0 1px 0 var(--glass-edge),
+      var(--shadow);
+    backdrop-filter: blur(22px) saturate(150%);
+    -webkit-backdrop-filter: blur(22px) saturate(150%);
+  }
+
+  .glass-panel--featured {
+    background:
+      radial-gradient(
+        120% 120% at 100% 0%,
+        var(--accent-soft),
+        transparent 55%
+      ),
+      var(--glass);
+  }
+
+  /* A modal sheet sits above live content, so its material is heavier than a
+     card's. Still one translucent layer — never stack another on top. */
+  .glass-sheet {
+    background: color-mix(in srgb, var(--paper) 96%, transparent);
+    box-shadow:
+      inset 0 1px 0 var(--glass-edge),
+      0 44px 120px -44px rgba(25, 23, 18, 0.62);
+    backdrop-filter: blur(30px) saturate(160%);
+    -webkit-backdrop-filter: blur(30px) saturate(160%);
+  }
+
+  .glass-pill {
+    background: var(--glass-strong);
+    border: 1px solid var(--line);
+    box-shadow:
+      inset 0 1px 0 var(--glass-edge),
+      0 18px 42px -30px rgba(25, 23, 18, 0.6);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+  }
+
+  .display-title {
+    font-size: clamp(2.7rem, 6.2vw, 5.2rem);
+    font-weight: 600;
+    line-height: 0.97;
+    letter-spacing: -0.045em;
+    text-wrap: balance;
+  }
+
+  .section-title {
+    font-size: clamp(1.9rem, 3.4vw, 2.75rem);
+    font-weight: 600;
+    line-height: 1.04;
+    letter-spacing: -0.034em;
+    text-wrap: balance;
+  }
+
+  .card-title {
+    letter-spacing: -0.022em;
+    line-height: 1.12;
+  }
+
+  .eyebrow {
+    font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .lede {
+    letter-spacing: -0.012em;
+    line-height: 1.55;
+  }
+
+  .caption {
+    letter-spacing: 0.01em;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--ink) 4%, transparent);
+    padding: 0.3rem 0.55rem;
+    color: var(--muted);
+    font-size: 0.7rem;
+    letter-spacing: 0.005em;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    padding: 0.8rem 1.15rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    transition:
+      background-color 200ms ease,
+      border-color 200ms ease,
+      color 200ms ease,
+      transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .btn-primary {
+    border: 1px solid transparent;
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .btn-primary:hover {
+    background: color-mix(in srgb, var(--ink) 86%, var(--accent));
+  }
+
+  .btn-secondary {
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--line-strong);
+    background: color-mix(in srgb, var(--ink) 4%, transparent);
+  }
+
+  .btn-primary:active,
+  .btn-secondary:active {
+    transform: scale(0.97);
+  }
+
+  .card-hover {
+    transition:
+      border-color 220ms ease,
+      box-shadow 220ms ease;
+  }
+
+  .link-quiet {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--ink);
+    transition: color 160ms ease;
+  }
+
+  .link-quiet:hover {
+    color: var(--accent);
+  }
+
+  .skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 100;
+    transform: translateY(-250%);
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0.65rem 1rem;
+    font-size: 0.8rem;
+    transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .card-hover:hover {
+    border-color: var(--line-strong);
+    box-shadow:
+      inset 0 1px 0 var(--glass-edge),
+      0 36px 90px -52px rgba(25, 23, 18, 0.7);
+  }
+
+  .link-quiet svg {
+    transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .link-quiet:hover svg {
+    transform: translate(1px, -1px);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass-panel,
+  .glass-panel--featured,
+  .glass-sheet,
+  .glass-pill {
+    background: var(--paper);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .page-aura {
+    opacity: 0.35;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --line: var(--ink);
+    --line-strong: var(--ink);
+    --glass: var(--paper);
+    --glass-strong: var(--paper);
+  }
+
+  .glass-panel,
+  .glass-panel--featured,
+  .glass-sheet,
+  .glass-pill {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-color: var(--ink);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -32,6 +32,12 @@ export interface Project {
   links: { github?: string; live?: string; caseStudy?: string };
 }
 
+export interface Website {
+  id: string;
+  label: string;
+  url: string;
+}
+
 export interface Experience {
   id: string;
   role: string;
@@ -48,13 +54,25 @@ export const RESUME_DATA = {
     location: "Delhi NCR, India",
     availability: "Open for Full-Time Roles & Global Freelance Contracts",
     defaultRole: "Multi-Disciplinary Technologist — AI, Full-Stack, Digital Growth & PM",
+    websites: [
+      {
+        id: "web-athermind",
+        label: "Athermind",
+        url: "https://www.athermind.com/",
+      },
+      {
+        id: "web-thinkrook",
+        label: "Thinkrook",
+        url: "https://www.thinkrook.com/",
+      },
+    ] as Website[],
   },
 
   // 1. Dynamic Persona Modes (Powers the Apple Segmented Control & ?persona= URL param)
   personas: {
     all: {
       id: "all",
-      label: "All Hats",
+      label: "Overview",
       badge: "Full-Spectrum Builder & Marketer",
       headline: "Bridging Production Code, AI Automation & Digital Growth.",
       subheadline:
@@ -90,28 +108,41 @@ export const RESUME_DATA = {
     },
   } as Record<PersonaId, PersonaConfig>,
 
-  // 2. Managed Social Media Channels & Brand Proof (Replace URLs/handles with your live links)
+  // 2. Managed Social Media Channels & Brand Proof
   socialPortfolio: [
     {
-      id: "social-ig-1",
+      id: "social-ig-fcb",
       platform: "Instagram",
-      handle: "@your_managed_handle", // Replace with actual Instagram handle
-      url: "https://instagram.com/your_managed_handle",
+      handle: "@fcbdelhincr",
+      url: "https://www.instagram.com/fcbdelhincr/",
       role: "Social Media Manager & Content Strategist",
-      niche: "Sports Community & Aesthetics / Tech Brand",
-      metrics: "High-retention Reels, Visual Grid Curation & Community Growth",
+      niche: "Sports Community & Grassroots Football",
+      metrics: "Matchday Reels, Visual Grid Curation & Community Growth",
       highlights: [
         "Directed graphic art direction, aesthetic poster series, and short-form Reel hooks.",
         "Managed content calendars, hashtag/keyword SEO, and community engagement workflows.",
       ],
     },
     {
-      id: "social-yt-1",
+      id: "social-ig-thinknyx",
+      platform: "Instagram",
+      handle: "@thinknyx",
+      url: "https://www.instagram.com/thinknyx/",
+      role: "Brand & Content Strategist",
+      niche: "Cloud, DevOps & Enterprise Tech",
+      metrics: "Technical Carousels, Event Recaps & Employer Brand",
+      highlights: [
+        "Built technical carousel systems and event recaps that made enterprise training approachable.",
+        "Coordinated campaign copy, visual direction, and publishing cadence with the delivery team.",
+      ],
+    },
+    {
+      id: "social-yt-thinknyx",
       platform: "YouTube",
-      handle: "@your_youtube_channel", // Replace with actual YouTube handle
-      url: "https://youtube.com/@your_youtube_channel",
+      handle: "@thinknyxtechnologies7446",
+      url: "https://www.youtube.com/@thinknyxtechnologies7446",
       role: "Channel Manager & Video SEO Strategist",
-      niche: "Tech, AI & Creator Content",
+      niche: "Cloud, Kubernetes & AI Tutorials",
       metrics: "Optimized CTR Thumbnails, Retention Scripting & YouTube Shorts",
       highlights: [
         "Executed keyword research, metadata optimization, and high-CTR packaging for long-form and Shorts.",
@@ -119,15 +150,15 @@ export const RESUME_DATA = {
       ],
     },
     {
-      id: "social-li-1",
+      id: "social-li-thinknyx",
       platform: "LinkedIn",
-      handle: "in/dheerajsain", // Replace with your LinkedIn or client pages
-      url: "https://linkedin.com/in/dheerajsain",
-      role: "B2B Thought Leadership & Personal Branding",
-      niche: "SaaS, AI Engineering & B2B Growth",
-      metrics: "Inbound Lead Generation & Executive Ghostwriting",
+      handle: "thinknyx-technologies",
+      url: "https://www.linkedin.com/company/thinknyx-technologies",
+      role: "B2B Thought Leadership & Employer Branding",
+      niche: "Cloud, DevOps & Enterprise Training",
+      metrics: "Inbound Leads, Event Promotion & Technical Authority",
       highlights: [
-        "Crafted technical storytelling and B2B authority posts driving inbound freelance and recruitment leads.",
+        "Crafted technical storytelling and B2B authority posts driving inbound training and recruitment leads.",
         "Built direct founder-outreach campaigns (including product pitches like FotAI).",
       ],
     },
@@ -145,7 +176,7 @@ export const RESUME_DATA = {
       techStack: ["Next.js", "FastAPI", "Instagram Growth", "Community Management", "SEO"],
       summary:
         "Built both the booking/revenue-share platform for football and basketball sessions and the grassroots social media engine driving local player acquisition.",
-      links: { live: "https://your-link.com" },
+      links: {},
     },
     {
       id: "ai-content-seo-engine",
@@ -169,7 +200,7 @@ export const RESUME_DATA = {
       techStack: ["Django", "Kubernetes API", "LLMs", "Python", "Docker"],
       summary:
         "Architected an AI observability tool that translates natural-language queries into live K8s diagnostic commands.",
-      links: { github: "https://github.com/yourusername/kubebuddy" },
+      links: {},
     },
     {
       id: "musashi-dispatch",
@@ -225,10 +256,10 @@ export const RESUME_DATA = {
       stack: ["Next.js", "FastAPI", "LangGraph", "n8n", "Technical SEO", "AWS"],
     },
     {
-      id: "exp-nao",
+      id: "exp-ajaia",
       role: "Software Developer",
-      company: "Nao Medical",
-      period: "Previous",
+      company: "Ajaia.ai",
+      period: "4 Months (Part-Time)",
       personas: ["all", "engineering", "cloud-pm"],
       highlights: [
         "Developed scalable full-stack web modules and high-availability REST APIs using Django, React, and PostgreSQL.",
